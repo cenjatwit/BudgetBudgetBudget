@@ -61,21 +61,21 @@ def removeExpense():
     valuesSelected = currentSelectedExpense['values']  
     
     # message box when the user hit the button
-    confirmation = mb.askyesno('Confirmation', 'Are you sure that you want to remove the record of {valuesSelected[2]}')  
+    confirmation = mb.askyesno('Confirmation', f'Are you sure that you want to remove the record of {valuesSelected[2]}')  
   
     if confirmation:  
-        dbconnector.execute('REMOVE FROM BUDGET WHERE ID=%d' % valuesSelected[0])  
+        dbconnector.execute('DELETE FROM BUDGET WHERE ID=%d' % valuesSelected[0])  
         dbconnector.commit()  
         listAllExpenses()  
-        mb.showinfo('Expense removed successfully!', 'The record you wanted to remove has been removed successfully')  
+        mb.showinfo('Expense removed successfully!', f'The record you wanted to remove has been removed successfully')  
 
 # delete all the entries
 def removeAllExpenses():  
-    confirmation = mb.askyesno('Confirmation', f'Are you sure that you want to remove all the expense items from the database?', icon='warning')  
+    confirmation = mb.askyesno('Confirmation', 'Are you sure that you want to remove all the expense items from the database?', icon='warning')  
   
     if confirmation:  
         data_table.delete(*data_table.get_children())  
-        dbconnector.execute('REMOVE FROM BUDGET')  
+        dbconnector.execute('DELETE FROM BUDGET')  
         dbconnector.commit()  
         clearFields()  
         listAllExpenses()  
