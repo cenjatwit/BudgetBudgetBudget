@@ -13,7 +13,7 @@ def listAllExpenses():
     
     data_table.delete(*data_table.get_children())  
     
-    all_data = dbconnector.execute('SELECT * FROM ExpenseTracker')  
+    all_data = dbconnector.execute('SELECT * FROM BUDGET')  
     data = all_data.fetchall()  
     
     # inserting the values in the tkinter data table
@@ -64,7 +64,7 @@ def removeExpense():
     confirmation = mb.askyesno('Confirmation', 'Are you sure that you want to remove the record of {valuesSelected[2]}')  
   
     if confirmation:  
-        dbconnector.execute('REMOVE FROM ExpenseTracker WHERE ID=%d' % valuesSelected[0])  
+        dbconnector.execute('REMOVE FROM BUDGET WHERE ID=%d' % valuesSelected[0])  
         dbconnector.commit()  
         listAllExpenses()  
         mb.showinfo('Expense removed successfully!', 'The record you wanted to remove has been removed successfully')  
@@ -75,7 +75,7 @@ def removeAllExpenses():
   
     if confirmation:  
         data_table.delete(*data_table.get_children())  
-        dbconnector.execute('REMOVE FROM ExpenseTracker')  
+        dbconnector.execute('REMOVE FROM BUDGET')  
         dbconnector.commit()  
         clearFields()  
         listAllExpenses()  
@@ -97,7 +97,7 @@ def addAnotherExpense():
         mb.showerror('Fields are empty!', "Please fill all the missing fields then hit the 'Add Expense' button!")  
     else:  
         dbconnector.execute(  
-            'INSERT INTO ExpenseTracker (Date, Payee, Description, Amount, paymentMethod) VALUES (?, ?, ?, ?, ?)',  
+            'INSERT INTO BUDGET (Date, Payee, Description, Amount, paymentMethod) VALUES (?, ?, ?, ?, ?)',  
             (dateField.get_date(), payee.get(), description.get(), amount.get(), paymentMethod.get())  
         )  
         dbconnector.commit()  
@@ -124,7 +124,7 @@ def editExpense():
         
         # update the information to database
         dbconnector.execute(  
-            'UPDATE ExpenseTracker SET Date = ?, Payee = ?, Description = ?, Amount = ?, paymentMethod = ? WHERE ID = ?',  
+            'UPDATE BUDGET SET Date = ?, Payee = ?, Description = ?, Amount = ?, paymentMethod = ? WHERE ID = ?',  
             (dateField.get_date(), payee.get(), description.get(), amount.get(), paymentMethod.get(), content[0])  
         )  
         dbconnector.commit()  
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     dbcursor = dbconnector.cursor()  
   
     dbconnector.execute(  
-        'CREATE TABLE IF NOT EXISTS ExpenseTracker (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Date DATETIME, Payee TEXT, Description TEXT, Amount FLOAT, paymentMethod TEXT)'  
+        'CREATE TABLE IF NOT EXISTS BUDGET (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Date DATETIME, Payee TEXT, Description TEXT, Amount FLOAT, paymentMethod TEXT)'  
     )  
     dbconnector.commit()  
   
