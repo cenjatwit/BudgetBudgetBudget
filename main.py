@@ -172,7 +172,7 @@ if __name__ == "__main__":
     # setting for the app pop up window
     main_win = Tk()  
     main_win.title("BUDGET BUDGET BUDGET")  
-    main_win.geometry("1440x600+400+100")  
+    main_win.geometry("1440x700+400+100")  
     main_win.resizable(0, 0)  
     main_win.config(bg = "#FFFAF0")  
     
